@@ -2,13 +2,13 @@ const express = require('express')
 const mongoose = require('mongoose')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
-const keys = require('./config/index')
+const keys = require('./config')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
 require('./models/user.model')
 require('./services/passport')
 
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true }, () => {console.log('MongoDB connected...')})
+mongoose.connect("mongodb://127.0.0.1:27017/", { useNewUrlParser: true }, () => {console.log('MongoDB connected...')})
 
 const app = express()
 const assetRoutes = require('./routes/asset.routes')
@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 app.use(
     cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000,
-        keys: [keys.cookieKey]
+        keys: [process.env.COOKIE_KEY]
     })
 )
 
@@ -52,6 +52,6 @@ app.use((err, req, res, next) => {
     res.status(500).send('Connection Error!')
 })
 
-app.listen(keys.port, () => console.info(`Server has started on ${keys.port}...`))
+app.listen(5000, () => console.info(`Server has started on 5000...`))
 
 module.exports = app

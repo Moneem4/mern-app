@@ -1,9 +1,7 @@
 const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const mongoose = require('mongoose')
-const keys = require('../config/index')
 const MockStrategy = require('passport-mock-strategy')
-
 const User = mongoose.model('User')
 
 passport.serializeUser((user, done) => {
@@ -27,8 +25,8 @@ if (process.env.NODE_ENV === 'test') {
 
 } else {
     passport.use(new GoogleStrategy({
-        clientID: keys.googleClientID,
-        clientSecret: keys.googleClientSecret,
+        clientID: "47419957301-r0uccssr93h0c498dsprpo9vne8q6p9n.apps.googleusercontent.com",
+        clientSecret: "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",
         callbackURL: '/auth/google/callback'
     }, 
     async (accessToken, refreshToken, profile, done) => {
